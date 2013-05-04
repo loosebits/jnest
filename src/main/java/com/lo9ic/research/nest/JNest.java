@@ -8,6 +8,9 @@ import java.util.Properties;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.lo9ic.research.Util;
@@ -21,6 +24,7 @@ public class JNest {
 	private StatusResponse statusResponse;
 	public boolean isLoggedIn = false;
 	public static Gson gson;
+	private static Logger logger = LoggerFactory.getLogger(JNest.class);
 	
 	public JNest () {
 		GsonBuilder gsonb = new GsonBuilder();
@@ -262,6 +266,7 @@ public class JNest {
 	public void handleLoginSuccess(HttpsURLConnection urlc) throws IOException {
 		
 	    StringBuffer buffer = Util.getStringBufferFromResponse(urlc);
+	    logger.debug("Received login response {}",buffer);
         loginResponse = gson.fromJson(buffer.toString(), LoginResponse.class);
         isLoggedIn = true;
         
@@ -269,6 +274,7 @@ public class JNest {
 	
 	public void handleStatusSuccess(HttpsURLConnection urlc) throws IOException {
 		StringBuffer buffer = Util.getStringBufferFromResponse(urlc);
+		logger.debug("Received status response {}",buffer);
 		statusResponse = gson.fromJson(buffer.toString(), StatusResponse.class);
 		
 	}

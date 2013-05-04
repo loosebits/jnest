@@ -1,5 +1,7 @@
 package com.lo9ic.research.nest;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 public class DeviceData {
 	public double heat_pump_comp_threshold;
 	public double learning_days_completed_cool;
@@ -73,4 +75,9 @@ public class DeviceData {
 	public boolean heat_pump_aux_threshold_enabled;
 	public double heat_pump_aux_threshold;
 	public DeviceData () {}
+	
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
 }
